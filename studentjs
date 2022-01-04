@@ -1,0 +1,32 @@
+import React, { Component } from 'react';
+import axios from 'axios'
+class Students extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            std:[]
+         }
+    }
+    componentDidMount(){
+        axios.get('http://localhost:8088/Students')
+        .then( res =>{
+            console.log(res.data);
+            this.setState({
+                std:res.data
+            })
+        })
+        .catch()
+    }
+    render() {
+
+        const{std}= this.state
+        return (
+            <div>
+            Students list
+            {std.map(stds=><div key={stds.id}>{stds.id} | {stds.name} | {stds.city}</div>)}
+            </div>  
+         );
+    }
+}
+ 
+export default Students;
